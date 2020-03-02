@@ -1,0 +1,1 @@
+/* two endpoints, /notes and /notes:id*/
