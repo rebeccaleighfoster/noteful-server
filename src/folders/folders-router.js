@@ -72,10 +72,11 @@ foldersRouter
             req.app.get('db'),
             req.params.folder_id
         )
-            .then(numRowsAffected => {
+            .then(() => {
                 res.status(204).end()
             })
             .catch(next)
     })
+
 
 module.exports = foldersRouter
