@@ -22,7 +22,7 @@ app.use('/folder/:id', foldersRouter)
 app.use('/note/:id', notesRouter)*/
 
 app.use('/folders', foldersRouter)
-app.use('/', notesRouter)
+app.use('/notes', notesRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello, World!')
