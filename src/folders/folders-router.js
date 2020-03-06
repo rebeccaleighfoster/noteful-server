@@ -14,7 +14,7 @@ const serializeFolder = folder => ({
 })
 
 foldersRouter
-    .route('/folder')
+    .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
         FoldersService.getAllFolders(knexInstance)
@@ -47,7 +47,7 @@ foldersRouter
     })
 
 foldersRouter
-    .route('/folder/:folder_id')
+    .route('/')
     .all((req, res, next) => {
         FoldersService.getById(
             req.app.get('db'),
