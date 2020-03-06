@@ -19,8 +19,11 @@ const serializeNote = notes => ({
 
 notesRouter
     .route('/')
-    .get((req, res, next) => {
-        const knexInstance = req.app.get('db')
+    .get('/', (req, res) => {
+        res.json({status: true})
+    })
+    
+       /* const knexInstance = req.app.get('db')
         NotesService.getAllNotes(knexInstance)
             .then(notes => {
                 res.json(notes.map(serializeNote))
@@ -53,7 +56,8 @@ notesRouter
 notesRouter
     .route('/')
     .all((req, res, next) => {
-        NotesService.getById(
+        res.json({status: true})
+       NotesService.getById(
             req.app.get('db'),
             req.params.id
         )
@@ -80,7 +84,7 @@ notesRouter
                 res.status(204).end()
             })
             .catch(next)
-    })
+    })*/
 
 
 module.exports = notesRouter
