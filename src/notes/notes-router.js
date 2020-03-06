@@ -5,6 +5,7 @@ const { NotesService } = require('./notes-service')
 
 const notesRouter = express.Router()
 const jsonParser = express.json()
+console.log( {NotesService} )
 
 const notes = [];
 
@@ -18,12 +19,8 @@ const serializeNote = notes => ({
 })
 
 notesRouter
-    .route('/')
-    .get('/', (req, res) => {
-        res.json({status: true})
-    })
-    
-       /* const knexInstance = req.app.get('db')
+    .get('/notes', (req, res, next) => {
+        const knexInstance = req.app.get('db')
         NotesService.getAllNotes(knexInstance)
             .then(notes => {
                 res.json(notes.map(serializeNote))
@@ -52,6 +49,11 @@ notesRouter
         })
         .catch(next)
     })
+    .get('/notes/:noteId', (req, res) => {
+        res.json({status: true})
+    })
+    
+       /* 
 
 notesRouter
     .route('/')

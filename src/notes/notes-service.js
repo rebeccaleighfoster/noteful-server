@@ -1,4 +1,5 @@
 const NotesService = {
+
     getAllNotes(knex) {
         return knex.select('*').from('noteful_notes')
     },
@@ -31,5 +32,7 @@ const NotesService = {
         .update(newNoteFields)
     },
 }
+
+
 
 module.exports = NotesService
