@@ -7,6 +7,7 @@ const notesRouter = express.Router()
 const jsonParser = express.json()
 
 
+
 const notes = [];
 
 const serializeNote = note => ({
@@ -25,13 +26,14 @@ notesRouter.route('/')
             .then(notes => {
                 res.json(notes.map(serializeNote))
             })
+            console.log( require('util').inspect( req.params ) )
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
         const { note_name } = req.body
         const newNote = { note_name }
         notes.push(newNote)
-
+       
         for (const [key, value] of Object.entries(newNote))
             if (value == null)
                 return res.status(400).json({
@@ -51,10 +53,11 @@ notesRouter.route('/')
     })
 
 notesRouter
-    .get('/',(req, res, next) => {
+    .get('/:id',(req, res, next) => {
        NotesService.getById(
             req.app.get('db'),
-            req.params.id
+            req.params.notes.id,
+            //req.params.id instead??
         )
         .then(note => {
             
