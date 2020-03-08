@@ -26,7 +26,6 @@ notesRouter.route('/')
             .then(notes => {
                 res.json(notes.map(serializeNote))
             })
-            console.log( require('util').inspect( req.params ) )
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
@@ -56,7 +55,7 @@ notesRouter
     .get('/:id',(req, res, next) => {
        NotesService.getById(
             req.app.get('db'),
-            req.params.notes.id,
+            req.params.id,
             //req.params.id instead??
         )
         .then(note => {
