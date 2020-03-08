@@ -5,17 +5,17 @@ const { NotesService } = require('./notes-service')
 
 const notesRouter = express.Router()
 const jsonParser = express.json()
-console.log( {NotesService})
+
 
 const notes = [];
 
-const serializeNote = notes => ({
-    id: notes.id,
-    note_name: xss(notes.note_name),
-    content: xss(notes.content),
-    date_created: (notes.date_created),
-    modified: (notes.modified),
-    folder_id: (notes.folder_id)
+const serializeNote = note => ({
+    id: note.id,
+    note_name: xss(note.note_name),
+    content: xss(note.content),
+    date_created: (note.date_created),
+    modified: (note.modified),
+    folder_id: (note.folder_id)
 })
 
 notesRouter.route('/')
@@ -51,14 +51,13 @@ notesRouter.route('/')
     })
 
 notesRouter
-    .get('/notes/:noteId')
-    .all((req, res, next) => {
-        res.json({status: true})
+    .get('/',(req, res, next) => {
        NotesService.getById(
             req.app.get('db'),
             req.params.id
         )
         .then(note => {
+            
             if (!note) {
                 return res.status(404).json({
                     error: { message: `Note doesn't exist` }
@@ -70,7 +69,8 @@ notesRouter
         .catch(next)
     })
     .get((req, res, next) => {
-        res.json(notes.map(serializeNote(res.notes)))
+       
+        res.json(serializeNote(res.note))
     })
     .delete((req, res, next) => {
         NotesService.deleteNote(
