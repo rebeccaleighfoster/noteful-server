@@ -47,25 +47,23 @@ foldersRouter
     })
 
 foldersRouter
-    .route('/')
-    .all((req, res, next) => {
+    .route('/:folder_id')
+    .get((req, res, next) => {
+        console.log( "first")
         FoldersService.getById(
             req.app.get('db'),
             req.params.folder_id
         )
         .then(folder => {
+            console.log(folder)
             if (!folder) {
                 return res.status(404).json({
                     error: { message: `Folder doesn't exist` }
                 })
             }
-            res.folder = folder
-            next()
+            res.json(folder)
         })
         .catch(next)
-    })
-    .get((req, res, next) => {
-        res.json(folder.map(serializeFolder(res.notes)))
     })
     .delete((req, res, next) => {
         FoldersService.deleteFolder(

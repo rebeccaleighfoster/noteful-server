@@ -10,9 +10,11 @@ const NotesService = {
     },
 
     getByFolderId(knex, folder_id) {
-        return knex.from('noteful_folders').select('*').where('id', folder_id).first()
+        return knex.from('noteful_notes').select('*').where('folder_id', folder_id)
         
     },
+
+
 
 
     getById(knex, id){

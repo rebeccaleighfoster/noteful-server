@@ -7,9 +7,6 @@ const notesRouter = express.Router()
 const jsonParser = express.json()
 
 
-
-const notes = [];
-
 const serializeNote = note => ({
     id: note.id,
     note_name: xss(note.note_name),
@@ -29,10 +26,8 @@ notesRouter.route('/')
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { note_name } = req.body
-        const newNote = { note_name }
-        notes.push(newNote)
-       
+    const newNote = req.body
+       console.log(newNote)
         for (const [key, value] of Object.entries(newNote))
             if (value == null)
                 return res.status(400).json({
@@ -52,37 +47,46 @@ notesRouter.route('/')
     })
 
 notesRouter
-    .get('/:id',(req, res, next) => {
+    .route("/:id")
+    .get((req, res, next) => {
        NotesService.getById(
             req.app.get('db'),
             req.params.id,
-            //req.params.id instead??
         )
         .then(note => {
-            
+            console.log(note)
             if (!note) {
                 return res.status(404).json({
                     error: { message: `Note doesn't exist` }
                 })
             }
-            res.note = note
-            next()
+            res.json(note)
         })
         .catch(next)
-    })
-    .get((req, res, next) => {
-       
-        res.json(serializeNote(res.note))
     })
     .delete((req, res, next) => {
         NotesService.deleteNote(
             req.app.get('db'),
-            req.params.note_id
+            req.params.id
         )
             .then(() => {
                 res.status(204).end()
             })
             .catch(next)
+    })
+
+notesRouter 
+    .route("/folder/:folder_id")
+    .get((req,res, next) =>{
+        NotesService.getByFolderId(
+            req.app.get('db'),
+            req.params.folder_id,
+        )
+        .then(notesById =>{
+            console.log(notesById)
+            res.json(notesById)
+        }
+        )
     })
 
 
