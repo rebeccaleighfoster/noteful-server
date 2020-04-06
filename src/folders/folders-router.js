@@ -38,10 +38,8 @@ foldersRouter
             newFolder
         )
         .then(folder => {
-            res
-                .status(201)
-                .location(path.posix.join(req.originalUrl, `/${folder.id}`))
-                .json(serializeFolder(folder))
+            res.json(folder)
+               
         })
         .catch(next)
     })
