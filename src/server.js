@@ -1,6 +1,6 @@
 const knex = require('knex')
 const app = require('./app')
-const { PORT, DB_HOST, DB_PORT, DB_USER } = require('./config')
+const { PORT, DB_HOST, DB_PORT, DB_USER } = process.env
 
 const db = knex({
   client: 'pg',
