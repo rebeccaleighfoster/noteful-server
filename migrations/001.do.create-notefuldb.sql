@@ -1,5 +1,5 @@
 --Database: noteful
- DROP DATABASE noteful;
+DROP DATABASE noteful;
 
 CREATE DATABASE noteful
     WITH 
