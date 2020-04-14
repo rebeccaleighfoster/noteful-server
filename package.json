@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.js",
     "migrate:test": "env NODE_ENV=test npm run migrate",
     "migrate": "postgrator --config postgrator-config.js",
-    "migrate:production": "env NODE_ENV=production SSL=true DATABASE_URL=$(heroku config:get DATABASE_URL) npm run migrate",
+    "migrate:production": "env NODE_ENV=production DATABASE_HOST=$(heroku config:get DATABASE_HOST) DATABASE_PORT=$(heroku config:get DATABASE_PORT) DATABASE_NAME=$(heroku config:get DATABASE_NAME) DATABASE_USER=$(heroku config:get DATABASE_USER) DATABASE_PASSWORD=$(heroku config:get DATABASE_PASSWORD) npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm run migrate:production",
     "deploy": "git push heroku master"
