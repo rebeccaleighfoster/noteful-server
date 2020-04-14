@@ -1,10 +1,20 @@
 require('dotenv').config();
-console.log(process.env);
+
+const {
+  DATABASE_HOST,
+  DATABASE_PORT,
+  DATABASE_NAME,
+  DATABASE_USER,
+  DATABASE_PASSWORD
+} = process.env;
+
 module.exports = {
-  "migrationsDirectory": "migrations",
-  "driver": "pg",
-  "connectionString": (process.env.NODE_ENV === 'test')
-       ? process.env.TEST_DATABASE_URL
-       : process.env.DATABASE_URL,
-     "ssl": !!process.env.SSL,
-  }
+  migrationDirectory: __dirname + "/migrations",
+  driver: "pg",
+  host: DATABASE_HOST,
+  port: DATABASE_PORT,
+  database: DATABASE_NAME,
+  username: DATABASE_USER,
+  password: DATABASE_PASSWORD,
+  ssl: true
+};
