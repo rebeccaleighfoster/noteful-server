@@ -8,6 +8,7 @@
     "dev": "nodemon src/server.js",
     "migrate:test": "env NODE_ENV=test npm run migrate",
     "migrate": "postgrator --config postgrator-config.js",
+    "seed:production": "env NODE_ENV=production DATABASE_HOST=$(heroku config:get DATABASE_HOST) DATABASE_PORT=$(heroku config:get DATABASE_PORT) DATABASE_NAME=$(heroku config:get DATABASE_NAME) DATABASE_USER=$(heroku config:get DATABASE_USER) DATABASE_PASSWORD=$(heroku config:get DATABASE_PASSWORD) knex seed:run",
     "migrate:production": "env NODE_ENV=production DATABASE_HOST=$(heroku config:get DATABASE_HOST) DATABASE_PORT=$(heroku config:get DATABASE_PORT) DATABASE_NAME=$(heroku config:get DATABASE_NAME) DATABASE_USER=$(heroku config:get DATABASE_USER) DATABASE_PASSWORD=$(heroku config:get DATABASE_PASSWORD) npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm run migrate:production",
@@ -30,6 +31,7 @@
     "chai": "^4.2.0",
     "mocha": "^6.2.1",
     "nodemon": "^1.19.3",
+    "postgrator": "^4.0.0",
     "postgrator-cli": "^3.2.0",
     "supertest": "^4.0.2"
   }

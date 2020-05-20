@@ -74,7 +74,7 @@ notesRouter
 
 notesRouter 
     .route("/folder/:folder_id")
-    .get((req,res, next) =>{
+    .get((req,res, next) => {
         NotesService.getByFolderId(
             req.app.get('db'),
             req.params.folder_id,

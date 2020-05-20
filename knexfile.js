@@ -17,7 +17,8 @@ module.exports = {
     database: DATABASE_NAME,
     charset: "utf8",
     timezone: "utc",
-    password: DATABASE_PASSWORD
+    password: DATABASE_PASSWORD,
+    ssl: true
   },
   seeds: {
     directory: "./seeds"
